@@ -46,9 +46,9 @@ pipeline {
     stage('SonarQube Scan') {
       steps {
         sh """mvn sonar:sonar \
-                -Dsonar.projectKey=JavaWebApp1028 \
-                -Dsonar.host.url=http://18.237.122.42:9000 \
-                -Dsonar.login=4a2a3aa0dad76b96f479273ecc7dd63120057f29"""
+              -Dsonar.projectKey=JavaWebApp \
+              -Dsonar.host.url=http://172.31.4.143:9000 \
+              -Dsonar.login=e9733df3fcd6ed54cef307d8ac4cc00eeb2d3611"""
       }
     }
     stage('Upload to Artifactory') {
@@ -94,7 +94,7 @@ pipeline {
   post {
     always {
         echo 'Slack Notifications.'
-        slackSend channel: 'theodore-jenkins-cicd-pipeline-alerts', //update and provide your channel name
+        slackSend channel: '#theodore3-jenkins-cicd-pipeline-alerts', //update and provide your channel name
         color: COLOR_MAP[currentBuild.currentResult],
         message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
     }
